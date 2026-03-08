@@ -416,3 +416,66 @@ h3 { font-size: 1.5rem; }
   .cta-group { justify-content: center; }
   .nav-links { display: none; } /* Simple mobile hide for demo */
 }
+
+/* Animated GitHub Link */
+.github-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: var(--gradient);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px var(--primary-glow);
+  animation: floatAndPulse 4s ease-in-out infinite;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.github-float::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.github-float:hover::before {
+  left: 100%;
+  transition: all 0.5s ease;
+}
+
+.github-float:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.github-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+@keyframes floatAndPulse {
+  0% { transform: translateY(0) scale(1); box-shadow: 0 0 0 0 var(--primary-glow); }
+  50% { transform: translateY(-10px) scale(1.02); box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+  100% { transform: translateY(0) scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+@media (max-width: 768px) {
+  .github-float {
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
