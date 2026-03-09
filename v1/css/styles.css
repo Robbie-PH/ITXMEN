@@ -479,3 +479,137 @@ h3 { font-size: 1.5rem; }
     font-size: 0.9rem;
   }
 }
+
+/* Feedback Widget */
+.feedback-float {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  color: #fff;
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: var(--transition);
+}
+
+.feedback-float:hover {
+  background: var(--bg-card);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.feedback-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.feedback-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.feedback-overlay .feedback-panel {
+  position: relative;
+  width: 90%;
+  max-width: 450px;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feedback-overlay.visible .feedback-panel {
+  transform: translateY(0) scale(1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.close-btn:hover {
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+#feedback-success {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+#feedback-success h4 {
+  color: #10b981;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.success-anim .success-icon {
+  animation: floatAndPulse 2s ease-in-out infinite;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Base override for feedback select */
+.styled-form select {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  color: #fff;
+  font-family: inherit;
+  transition: var(--transition);
+  appearance: none;
+}
+.styled-form select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+.styled-form select option {
+  background: var(--bg-dark);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .feedback-float {
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}

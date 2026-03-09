@@ -1,4 +1,4 @@
-const DISCLAIMER_TEXT = "THIS IS A DEMO WEBSITE PREPARED BY MATTYJACKS.COM AND IS NOT AUTHORIZED BY ITXMEN OR STEPHEN NOLAN. This is a sales pitch site.";
+const DISCLAIMER_TEXT = "THIS IS A DEMO WEBSITE PREPARED BY ROBBIE AND IS NOT AUTHORIZED BY ITXMEN OR STEPHEN NOLAN. This is a sales pitch site.";
 
 const headerHTML = `
     <div class="disclaimer-banner">
@@ -44,7 +44,7 @@ const footerHTML = `
             <strong>⚠️ DEMO/PITCH SITE:</strong> ${DISCLAIMER_TEXT}
         </div>
         <div style="text-align: center; margin-top: 2rem; color: #555; font-size: 0.8rem;">
-            &copy; 2026 Pitch Demo by MattyJacks.com
+            &copy; 2026 Pitch Demo by ROBBIE
         </div>
     </footer>
 `;
@@ -81,6 +81,87 @@ document.addEventListener("DOMContentLoaded", () => {
         </a>
     `;
     document.body.insertAdjacentHTML('beforeend', githubLinkHTML);
+
+    // Inject Feedback Widget
+    const feedbackHTML = `
+        <button id="feedback-btn" class="feedback-float" aria-label="Open feedback form">
+            <span class="icon">💬</span> Feedback
+        </button>
+        <div id="feedback-modal" class="feedback-overlay hidden">
+            <div class="feedback-panel glass-panel">
+                <button id="feedback-close" class="close-btn" aria-label="Close">&times;</button>
+                <h3>We value your thoughts</h3>
+                <p class="subtitle" style="margin-bottom: 1rem; font-size: 0.95rem;">Have a suggestion or found a bug? Let us know.</p>
+                <form id="feedback-form" class="styled-form">
+                    <div class="form-group">
+                        <label for="feedback-type">Topic</label>
+                        <select id="feedback-type" required>
+                            <option value="suggestion">Suggestion</option>
+                            <option value="bug">Report a Bug</option>
+                            <option value="other">Other Feedback</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback-message">Details</label>
+                        <textarea id="feedback-message" rows="4" placeholder="Tell us more..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full">Send Feedback</button>
+                </form>
+                <div id="feedback-success" class="hidden">
+                    <div class="success-icon">✨</div>
+                    <h4>Thank you!</h4>
+                    <p>Your feedback helps us improve.</p>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', feedbackHTML);
+
+    // Feedback Logic
+    const fbBtn = document.getElementById('feedback-btn');
+    const fbModal = document.getElementById('feedback-modal');
+    const fbClose = document.getElementById('feedback-close');
+    const fbForm = document.getElementById('feedback-form');
+    const fbSuccess = document.getElementById('feedback-success');
+
+    if(fbBtn && fbModal && fbClose) {
+        fbBtn.addEventListener('click', () => {
+            fbModal.classList.remove('hidden');
+            fbModal.classList.add('visible');
+        });
+        
+        fbClose.addEventListener('click', () => {
+            fbModal.classList.remove('visible');
+            setTimeout(() => fbModal.classList.add('hidden'), 400); // match transition
+        });
+
+        fbModal.addEventListener('click', (e) => {
+            if(e.target === fbModal) {
+                fbModal.classList.remove('visible');
+                setTimeout(() => fbModal.classList.add('hidden'), 400); 
+            }
+        });
+    }
+
+    if(fbForm) {
+        fbForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Mock submission
+            fbForm.style.display = 'none';
+            fbSuccess.classList.remove('hidden');
+            fbSuccess.classList.add('success-anim');
+            setTimeout(() => {
+                fbModal.classList.remove('visible');
+                setTimeout(() => {
+                    fbModal.classList.add('hidden');
+                    fbForm.style.display = 'block';
+                    fbSuccess.classList.add('hidden');
+                    fbSuccess.classList.remove('success-anim');
+                    fbForm.reset();
+                }, 400);
+            }, 3000);
+        });
+    }
 });
 
 function initScrollAnimations() {
